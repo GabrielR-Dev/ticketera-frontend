@@ -1,0 +1,99 @@
+<div class="dashboard-container">
+
+  <aside class="sidebar" [class.collapsed]="!isMenuOpen">
+
+    <nav class="sidebar-nav">
+
+
+      <!-- Dashboard -->
+      <a routerLink="/dashboard" routerLinkActive="active" class="nav-item">
+        <span class="nav-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="3" width="7" height="7"></rect>
+            <rect x="14" y="3" width="7" height="7"></rect>
+            <rect x="14" y="14" width="7" height="7"></rect>
+            <rect x="3" y="14" width="7" height="7"></rect>
+          </svg>
+        </span>
+        @if (isMenuOpen) {
+        <span class="nav-text">Dashboard</span>
+        }
+        <!-- <span class="notification-badge">4</span> Con esto mostramos si haz un issue activo -->
+
+      </a>
+
+      <!-- Instructivo -->
+      <a routerLink="/instructivo" routerLinkActive="active" class="nav-item">
+        <span class="nav-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+          </svg>
+        </span>
+        @if (isMenuOpen) {
+        <span class="nav-text">Instructivo</span>
+        }
+      </a>
+
+      <!-- Historial issues -->
+      <a routerLink="/issues" routerLinkActive="active" class="nav-item">
+
+        <span class="nav-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="8" x2="12" y2="12"></line>
+            <line x1="12" y1="16" x2="12.01" y2="16"></line>
+          </svg>
+        </span>
+
+        @if (isMenuOpen) {
+        <span class="nav-text">Historial Issues</span>
+        }
+      </a>
+
+
+      <!-- New Issue Button -->
+      <button class="new-issue-btn">
+
+        @if (isMenuOpen) {
+        <span class="btn-text">New Issue</span>
+        } @else {
+        <span class="btn-icon">+</span>
+        }
+
+      </button>
+    </nav>
+  </aside>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <!-- Header -->
+    <header class="header">
+
+      <div class="header-left">
+
+        <div class="header-title">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z"></path>
+          </svg>
+          <span>Ticketera Issue</span>
+        </div>
+
+      </div>
+      <button class="menu-icon" (click)="toggleMenu()">
+
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+
+      </button>
+    </header>
+
+    <!-- Router Outlet - Aca se cargan los diferentes componentes -->
+    <div class="content-area">
+      <router-outlet></router-outlet>
+    </div>
+    
+  </div>
+</div>
