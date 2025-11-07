@@ -25,11 +25,17 @@ export const routes: Routes = [
         path: 'reporte-issue',
         loadComponent: () => import('./components/new-issue/new-issue.component').then(m => m.NewIssueComponent)
       },
+        
+      {path: 'dashboard',
+        loadComponent: () => import('./components/dashboard/dashboard.component').then(m => m.DashboardComponent)
+      
+      },
+      
       {
         path: '',
         redirectTo: 'dashboard',
         pathMatch: 'full'
-      }
+      },
     ]
   },
   {
