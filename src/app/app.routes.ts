@@ -20,7 +20,11 @@ export const routes: Routes = [
         path: 'ejemplo',
         loadComponent: () => import('./components/ejemplo/ejemplo.component').then(m => m.EjemploComponent)
       },
-*/
+      */
+      {
+        path: 'reporte-issue',
+        loadComponent: () => import('./components/new-issue/new-issue.component').then(m => m.NewIssueComponent)
+      },
       {
         path: '',
         redirectTo: 'dashboard',

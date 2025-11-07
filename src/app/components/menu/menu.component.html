@@ -7,6 +7,7 @@
 
       <!-- Dashboard -->
       <a routerLink="/dashboard" routerLinkActive="active" class="nav-item">
+
         <span class="nav-icon">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <rect x="3" y="3" width="7" height="7"></rect>
@@ -15,6 +16,7 @@
             <rect x="3" y="14" width="7" height="7"></rect>
           </svg>
         </span>
+
         @if (isMenuOpen) {
         <span class="nav-text">Dashboard</span>
         }
@@ -24,18 +26,20 @@
 
       <!-- Instructivo -->
       <a routerLink="/instructivo" routerLinkActive="active" class="nav-item">
+
         <span class="nav-icon">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
           </svg>
         </span>
+
         @if (isMenuOpen) {
         <span class="nav-text">Instructivo</span>
         }
       </a>
 
       <!-- Historial issues -->
-      <a routerLink="/issues" routerLinkActive="active" class="nav-item">
+      <a routerLink="/reporte-issue" routerLinkActive="active" class="nav-item">
 
         <span class="nav-icon">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -55,7 +59,7 @@
       <button class="new-issue-btn">
 
         @if (isMenuOpen) {
-        <span class="btn-text">New Issue</span>
+        <span class="btn-text">Reportar Issue</span>
         } @else {
         <span class="btn-icon">+</span>
         }
@@ -94,6 +98,6 @@
     <div class="content-area">
       <router-outlet></router-outlet>
     </div>
-    
+
   </div>
 </div>
