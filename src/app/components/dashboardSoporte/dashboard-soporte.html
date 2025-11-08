@@ -1,0 +1,39 @@
+<button type="button" class="btn btn-primary" (click)="mostrarModal()">Modal</button>
+
+
+<div class="modalTicket" [ngStyle]="{ 'display' : estadoModal ? 'flex' : 'none' }">
+    <div>
+        <h3>Hola desde el modal</h3>
+        <p>Este es un modal simple hecho con Angular.</p>
+        <button (click)="cerrarModal()">Cerrar</button>
+    </div>
+</div>
+
+<table class="table table-bordered border-dark">
+
+    <thead>
+        <tr>
+            <th class="id">ID</th>
+            <th>First</th>
+            <th>Last</th>
+            <th>Handle</th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @for (producto of listaProductos; track producto.id) {
+        <tr [ngStyle]="{ 'background-color': producto.precio > 15000 ? 'yellow' : 'lightgreen' }">
+            <th>{{producto.id}}</th>
+            <td>{{producto.nombre}}</td>
+            <td>{{producto.categoria}}</td>
+            <td>{{producto.precio}}</td>
+
+            <td class="botones">
+                <button type="button" class="btn btn-primary" [disabled]="producto.precio > 15000">Asignar</button>
+                <button type="button" class="btn btn-primary">Detalle</button>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
