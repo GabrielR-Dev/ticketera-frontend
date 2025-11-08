@@ -91,7 +91,7 @@ export class TicketModel implements ITicket {
   }
 
 
-  // transcribir categoria a string
+  // Transcribir categoria a string
   getCategoriaString(): string {
     switch (this.categoria) {
       case CategoriaTicket.RED:
@@ -105,7 +105,7 @@ export class TicketModel implements ITicket {
     }
   }
 
-  // Verificar si tiene tecnco asignado
+  // Verificar si tiene tecnico asignado
   tieneTecncoAsignado(): boolean {
     return this.tecnicoID !== null && this.tecnicoID !== undefined;
   }

@@ -33,6 +33,9 @@ export const routes: Routes = [
       {path: 'dashboard-soporte',
         loadComponent: () => import('./components/dashboardSoporte/dashboard-soporte').then(m => m.DashboardSoporte)
       },
+      {path: 'dashboard-soporte/:id',
+        loadComponent: () => import('./components/ticket/detalle-ticket.component').then(m => m.DetalleTicketComponent)
+      },
 
       {
         path: '',

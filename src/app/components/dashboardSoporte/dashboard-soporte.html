@@ -1,15 +1,4 @@
-<button type="button" class="btn btn-primary" (click)="mostrarModal()">Modal</button>
-
-
-<div class="modalTicket" [ngStyle]="{ 'display' : estadoModal ? 'flex' : 'none' }">
-    <div>
-        <h3>Hola desde el modal</h3>
-        <p>Este es un modal simple hecho con Angular.</p>
-        <button (click)="cerrarModal()">Cerrar</button>
-    </div>
-</div>
-
-<table class="table table-bordered border-dark">
+<table class="table">
 
     <thead>
         <tr>
@@ -22,16 +11,16 @@
     </thead>
 
     <tbody>
-        @for (producto of listaProductos; track producto.id) {
-        <tr [ngStyle]="{ 'background-color': producto.precio > 15000 ? 'yellow' : 'lightgreen' }">
-            <th>{{producto.id}}</th>
-            <td>{{producto.nombre}}</td>
-            <td>{{producto.categoria}}</td>
-            <td>{{producto.precio}}</td>
+        @for (ticket of listaProductos; track ticket.id) {
+        <tr [ngStyle]="{ 'background-color': ticket.precio > 15000 ? 'yellow' : 'lightgreen' }">
+            <th>{{ticket.id}}</th>
+            <td>{{ticket.nombre}}</td>
+            <td>{{ticket.categoria}}</td>
+            <td>{{ticket.precio}}</td>
 
             <td class="botones">
-                <button type="button" class="btn btn-primary" [disabled]="producto.precio > 15000">Asignar</button>
-                <button type="button" class="btn btn-primary">Detalle</button>
+                <button type="button" class="btn btn-primary" [disabled]="ticket.precio > 15000">Asignar</button>
+                <button type="button" class="btn btn-primary" [routerLink]="['/dashboard-soporte', ticket.id]">Detalle</button>
             </td>
         </tr>
         }
