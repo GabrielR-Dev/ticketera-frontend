@@ -15,3 +15,8 @@ export interface ITicket {
   categoria: CategoriaTicket;
   adjuntos: IAdjunto[];
 }
+
+export interface ApiResponse {
+  status: string;
+  data: [];
+}
