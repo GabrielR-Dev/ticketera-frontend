@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { ApiResponse } from '../interfaces/ITicket';
+import { ITicket } from '../interfaces/ITicket';
 import { IUsuario } from '../interfaces/IUsuario';
 
 @Injectable({
@@ -12,10 +12,13 @@ export class ApiService {
 
   constructor(private _httpClient: HttpClient) {}
 
-  public getData(): Observable<ApiResponse> {
-    return this._httpClient.get<ApiResponse>(this._url);
+  public getData(): Observable<ITicket> {
+    return this._httpClient.get<ITicket>(this._url);
   }
   public getUsers(): Observable<IUsuario[]> {
     return this._httpClient.get<IUsuario[]>(`${this._url}/users`);
+  }
+  public getTickets(): Observable<ITicket[]> {
+    return this._httpClient.get<ITicket[]>(`${this._url}/tickets`);
   }
 }

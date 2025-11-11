@@ -12,11 +12,11 @@ import { IUsuario } from '../../interfaces/IUsuario';
   styleUrl: './historial-issues.component.css',
 })
 export class HistorialIssuesComponent {
-  // todosLosElementos: ApiResponse[] = [];
-  todosLosElementos: IUsuario[] = [];
+  todosLosElementos: ITicket[] = [];
+  ticketsCerrados: ITicket[] = [];
+  ticketSeleccionado: any = null;
 
-  // 2. Variables para la paginación
-  elementosPorPagina = 10;
+  elementosPorPagina = 5;
   paginaActual = 1;
   elementosMostrados: any[] = [];
   totalPaginas = 1;
@@ -25,54 +25,64 @@ export class HistorialIssuesComponent {
   constructor(private apiService: ApiService) {}
 
   ngOnInit() {
-    this.cargarUsuarios();
+    this.cargarTickets();
   }
 
-  cargarUsuarios() {
-    this.apiService.getUsers().subscribe({
+  cargarTickets() {
+    this.apiService.getTickets().subscribe({
       next: (datos) => {
-        console.log('Respuesta completa del backend:', datos);
-        this.todosLosElementos = datos;
+        this.todosLosElementos = datos.map((d: any) => ({
+          id: d.ID,
+          titulo: d.TITULO,
+          descripcion: d.DESCRIPCION,
+          estado: d.ESTADO,
+          categoria: d.CATEGORIA,
+          fechaCreacion: d.FECHACREACION,
+          fechaAsignacion: d.FECHAASIGNACION,
+          fechaCierre: d.FECHACIERRE,
+          clienteID: d.CLIENTEID,
+          tecnicoID: d.TECNICOID,
+          cliente_nombre: d.CLIENTE_NOMBRE,
+          cliente_apellido: d.CLIENTE_APELLIDO,
+          cliente_email: d.CLIENTE_EMAIL,
+          cliente_rol: d.CLIENTE_ROL,
+          adjuntos: [],
+        }));
+
+        console.log('Respuesta completa del backend:', this.todosLosElementos);
+
+        this.ticketsCerrados = this.todosLosElementos.filter(
+          (t) => t.estado === 'CERRADO' 
+        );
+        // console.log('Tickets cerrados:', this.ticketsCerrados);
         this.calcularPaginacion();
         this.actualizarVista();
-      },
-      error: (err) => {
-        console.error('Error al cargar usuarios:', err);
       },
     });
   }
 
-  // cargarProductos() {
-  //   this.apiService.getData().subscribe({
-  //     next: (datos) => {
-  //       console.log('Respuesta completa del backend:', datos);
-  //       this.todosLosElementos = datos.data;
-  //       this.calcularPaginacion();
-  //       this.actualizarVista();
-  //     },
-  //     error: (err) => {
-  //       console.error('Error al cargar productos:', err);
-  //     },
-  //   });
-  // }
+  abrirModal(item: any) {
+    this.ticketSeleccionado = item;
+    console.log('Ticket seleccionado:', item);
+    const modal = new (window as any).bootstrap.Modal(
+      document.getElementById('exampleModal')
+    );
+    modal.show();
+  }
 
-  // 3. Calcula el total de páginas y genera el array de números [1, 2, 3...]
   calcularPaginacion() {
     this.totalPaginas = Math.ceil(
-      this.todosLosElementos.length / this.elementosPorPagina
+      this.ticketsCerrados.length / this.elementosPorPagina
     );
     this.paginas = Array.from({ length: this.totalPaginas }, (_, i) => i + 1);
   }
 
-  // 4. Actualiza qué elementos se muestran según la página actual
   actualizarVista() {
     const inicio = (this.paginaActual - 1) * this.elementosPorPagina;
     const fin = inicio + this.elementosPorPagina;
-    this.elementosMostrados = this.todosLosElementos.slice(inicio, fin);
-    console.log('Elementos mostrados:', this.elementosMostrados);
+    this.elementosMostrados = this.ticketsCerrados.slice(inicio, fin);
   }
 
-  // 5. Método llamado al hacer clic en un botón de página
   cambiarPagina(nuevaPagina: number) {
     if (nuevaPagina >= 1 && nuevaPagina <= this.totalPaginas) {
       this.paginaActual = nuevaPagina;

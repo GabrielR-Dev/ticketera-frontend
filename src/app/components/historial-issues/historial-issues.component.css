@@ -1,0 +1,17 @@
+:root {
+  --color-principal: #673AB7;
+
+}
+
+.modal-content {
+  background-color: #d8c2ff
+}
+
+.table th {
+  vertical-align: middle;
+  font-weight: 600;
+}
+
+.table td {
+  vertical-align: middle;
+}
