@@ -1,7 +1,7 @@
 <div class="contenedor">
   <h2>Formulario de Ticket de Soporte</h2>
   
-  <form #formularioTicket="ngForm"  >
+  <form #formularioTicket="ngForm" (ngSubmit)="enviarFormulario(formularioTicket)">
     
     <!-- Título -->
     <div class="grupo-formulario">
@@ -156,7 +156,7 @@
               [name]="'url_' + $index"
               class="control-formulario"
               placeholder="URL del archivo">
-            <button type="button" class="boton-remover">✕</button>
+            <button type="button" class="boton-remover" (click)="removerAdjunto($index)">✕</button>
 
           </div>
         </div>
@@ -175,7 +175,7 @@
         Crear Ticket
       </button>
 
-      <button type="button" class="boton-secundario">
+      <button type="button" class="boton-secundario" (click)="limpiarFormulario(formularioTicket)">
         Limpiar
       </button>
 

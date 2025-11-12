@@ -67,6 +67,7 @@ export class NewIssueComponent {
         }
     }
 
+
     agregarAdjunto(): void {
 
         this.datosFormulario.adjuntos.push({
@@ -80,4 +81,24 @@ export class NewIssueComponent {
         this.datosFormulario.adjuntos.splice(indice, 1);
     }
 
+    
+    limpiarFormulario(formulario: any): void {
+
+        formulario.resetForm();
+        
+        this.datosFormulario = {
+            titulo: '',
+            descripcion: '',
+            estado: this.EstadoTicket.PENDIENTE,
+            fechaCreacion: new Date(),
+            fechaAsignacion: null,
+            fechaCierre: null,
+            clienteID: 0,
+            tecnicoID: null,
+            categoria: '' as CategoriaTicket,
+            adjuntos: []
+        };
+        // Resetear el ticket creado
+        this.ticketCreado = null;
+    }
 }
