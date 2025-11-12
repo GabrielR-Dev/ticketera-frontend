@@ -21,4 +21,5 @@ export class ApiService {
   public getTickets(): Observable<ITicket[]> {
     return this._httpClient.get<ITicket[]>(`${this._url}/tickets`);
   }
+
 }
