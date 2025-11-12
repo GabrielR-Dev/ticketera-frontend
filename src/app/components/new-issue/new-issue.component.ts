@@ -64,6 +64,7 @@ export class NewIssueComponent {
 
             alert('Ticket creado exitosamente!');
 
+            this.limpiarFormulario(formulario);
         }
     }
 
@@ -85,7 +86,7 @@ export class NewIssueComponent {
     limpiarFormulario(formulario: any): void {
 
         formulario.resetForm();
-        
+
         this.datosFormulario = {
             titulo: '',
             descripcion: '',

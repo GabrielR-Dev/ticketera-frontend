@@ -1,185 +1,142 @@
 <div class="contenedor">
-  <h2>Formulario de Ticket de Soporte</h2>
-  
-  <form #formularioTicket="ngForm" (ngSubmit)="enviarFormulario(formularioTicket)">
-    
-    <!-- Título -->
-    <div class="grupo-formulario">
+    <h2>Formulario de Ticket de Soporte</h2>
 
-      <label for="titulo">Título *</label>
+    <form #formularioTicket="ngForm" (ngSubmit)="enviarFormulario(formularioTicket)">
 
-      <input 
-        id="titulo"
-        type="text" 
-        name="titulo"
-        [(ngModel)]="datosFormulario.titulo"
-        #titulo="ngModel"
-        required
-        class="control-formulario"
-        placeholder="Describe brevemente el problema">
+        <!-- Título -->
+        <div class="grupo-formulario">
 
-      @if (titulo.invalid && titulo.touched) {
-        <div class="error">El título es requerido</div>
-      }
+            <label for="titulo">Título *</label>
 
-    </div>
+            <input id="titulo" type="text" name="titulo" [(ngModel)]="datosFormulario.titulo" #titulo="ngModel" required
+                class="control-formulario" placeholder="Describe brevemente el problema">
 
-    <!-- Descripción -->
-    <div class="grupo-formulario">
+            @if (titulo.invalid && titulo.touched) {
+            <div class="error">El título es requerido</div>
+            }
 
-      <label for="descripcion">Descripción *</label>
-
-      <textarea 
-        id="descripcion"
-        name="descripcion"
-        [(ngModel)]="datosFormulario.descripcion"
-        #descripcion="ngModel"
-        required
-        class="control-formulario"
-        rows="4"
-        placeholder="Describe detalladamente el problema"></textarea>
-
-      @if (descripcion.invalid && descripcion.touched) {
-        <div class="error">La descripción es requerida</div>
-      }
-
-    </div>
-
-    <!-- Estado -->
-    <div class="grupo-formulario">
-
-      <label for="estado">Estado *</label>
-
-      <select 
-        id="estado" 
-        name="estado"
-        [(ngModel)]="datosFormulario.estado"
-        #estado="ngModel"
-        required
-        class="control-formulario">
-        <option value="">Seleccione un estado</option>
-        <option [value]="EstadoTicket.PENDIENTE">Pendiente</option>
-        <option [value]="EstadoTicket.ASIGNADO">Asignado</option>
-        <option [value]="EstadoTicket.CERRADO">Cerrado</option>
-      </select>
-
-      @if (estado.invalid && estado.touched) {
-        <div class="error">El estado es requerido</div>
-      }
-
-    </div>
-
-    <!-- Cliente ID -->
-    <div class="grupo-formulario">
-      <label for="clienteID">ID del Cliente *</label>
-
-      <input 
-        id="clienteID"
-        type="number" 
-        name="clienteID"
-        [(ngModel)]="datosFormulario.clienteID"
-        #clienteID="ngModel"
-        required
-        min="1"
-        class="control-formulario"
-        placeholder="ID del usuario que reporta">
-
-
-      @if (clienteID.invalid && clienteID.touched) {
-        <div class="error">
-
-          @if (clienteID.errors?.['required']) {
-            <span>El ID del cliente es requerido</span>
-          }
-
-          @if (clienteID.errors?.['min']) {
-            <span>El ID debe ser mayor a 0</span>
-          }
         </div>
-      }
-    </div>
 
-    <!-- Técnico ID -->
-    <div class="grupo-formulario">
-      <label for="tecnicoID">ID del Técnico</label>
-      <input 
-        id="tecnicoID"
-        type="number" 
-        name="tecnicoID"
-        [(ngModel)]="datosFormulario.tecnicoID"
-        class="control-formulario"
-        placeholder="ID del técnico asignado (opcional)">
-    </div>
+        <!-- Descripción -->
+        <div class="grupo-formulario">
 
-    <!-- Categoria-->
-    <div class="grupo-formulario">
+            <label for="descripcion">Descripción *</label>
 
-      <label for="categoria">Categoría *</label>
+            <textarea id="descripcion" name="descripcion" [(ngModel)]="datosFormulario.descripcion"
+                #descripcion="ngModel" required class="control-formulario" rows="4"
+                placeholder="Describe detalladamente el problema"></textarea>
 
-      <select 
-        id="categoria" 
-        name="categoria"
-        [(ngModel)]="datosFormulario.categoria"
-        #categoria="ngModel"
-        required
-        class="control-formulario">
-        <option value="">Seleccione una categoría</option>
-        <option [value]="CategoriaTicket.RED">Red</option>
-        <option [value]="CategoriaTicket.HARDWARE">Hardware</option>
-        <option [value]="CategoriaTicket.SOFTWARE">Software</option>
-      </select>
+            @if (descripcion.invalid && descripcion.touched) {
+            <div class="error">La descripción es requerida</div>
+            }
 
-      @if (categoria.invalid && categoria.touched) {
-        <div class="error">La categoría es requerida</div>
-      }
-    </div>
-
-    <!-- Adjuntos -->
-    <div class="grupo-formulario">
-
-      <label>Adjuntos</label>
-
-      @for (adjunto of datosFormulario.adjuntos; track $index) {
-
-        <div class="item-adjunto">
-
-          <div class="campos-adjunto">
-            <input 
-              type="text" 
-              [(ngModel)]="adjunto.nombreArchivo"
-              [name]="'nombreArchivo_' + $index"
-              class="control-formulario"
-              placeholder="Nombre del archivo">
-            <input 
-              type="text" 
-              [(ngModel)]="adjunto.url"
-              [name]="'url_' + $index"
-              class="control-formulario"
-              placeholder="URL del archivo">
-            <button type="button" class="boton-remover" (click)="removerAdjunto($index)">✕</button>
-
-          </div>
         </div>
-      }
 
-      <button type="button" class="boton-secundario" (click)="agregarAdjunto()">
-        + Agregar Adjunto
-      </button>
+        <!-- Estado -->
+        <div class="grupo-formulario">
 
-    </div>
+            <label for="estado">Estado *</label>
 
-    <!-- Botones -->
-    <div class="acciones-formulario">
+            <select id="estado" name="estado" [(ngModel)]="datosFormulario.estado" #estado="ngModel" required
+                class="control-formulario">
+                <option value="">Seleccione un estado</option>
+                <option [value]="EstadoTicket.PENDIENTE">Pendiente</option>
+                <option [value]="EstadoTicket.ASIGNADO">Asignado</option>
+                <option [value]="EstadoTicket.CERRADO">Cerrado</option>
+            </select>
 
-      <button type="submit" class="boton-primario" [disabled]="formularioTicket.invalid">
-        Crear Ticket
-      </button>
+            @if (estado.invalid && estado.touched) {
+            <div class="error">El estado es requerido</div>
+            }
 
-      <button type="button" class="boton-secundario" (click)="limpiarFormulario(formularioTicket)">
-        Limpiar
-      </button>
+        </div>
 
-    </div>
-  </form>
+        <!-- Cliente ID -->
+        <div class="grupo-formulario">
+            <label for="clienteID">ID del Cliente *</label>
+
+            <input id="clienteID" type="number" name="clienteID" [(ngModel)]="datosFormulario.clienteID"
+                #clienteID="ngModel" required min="1" class="control-formulario"
+                placeholder="ID del usuario que reporta">
+
+
+            @if (clienteID.invalid && clienteID.touched) {
+            <div class="error">
+
+                @if (clienteID.errors?.['required']) {
+                <span>El ID del cliente es requerido</span>
+                }
+
+                @if (clienteID.errors?.['min']) {
+                <span>El ID debe ser mayor a 0</span>
+                }
+            </div>
+            }
+        </div>
+
+        <!-- Técnico ID -->
+        <div class="grupo-formulario">
+            <label for="tecnicoID">ID del Técnico</label>
+            <input id="tecnicoID" type="number" name="tecnicoID" [(ngModel)]="datosFormulario.tecnicoID"
+                class="control-formulario" placeholder="ID del técnico asignado (opcional)">
+        </div>
+
+        <!-- Categoria-->
+        <div class="grupo-formulario">
+
+            <label for="categoria">Categoría *</label>
+
+            <select id="categoria" name="categoria" [(ngModel)]="datosFormulario.categoria" #categoria="ngModel"
+                required class="control-formulario">
+                <option value="">Seleccione una categoría</option>
+                <option [value]="CategoriaTicket.RED">Red</option>
+                <option [value]="CategoriaTicket.HARDWARE">Hardware</option>
+                <option [value]="CategoriaTicket.SOFTWARE">Software</option>
+            </select>
+
+            @if (categoria.invalid && categoria.touched) {
+            <div class="error">La categoría es requerida</div>
+            }
+        </div>
+
+        <!-- Adjuntos -->
+        <div class="grupo-formulario">
+
+            <label>Adjuntos</label>
+
+            @for (adjunto of datosFormulario.adjuntos; track $index) {
+
+            <div class="item-adjunto">
+
+                <div class="campos-adjunto">
+                    <input type="text" [(ngModel)]="adjunto.nombreArchivo" [name]="'nombreArchivo_' + $index"
+                        class="control-formulario" placeholder="Nombre del archivo">
+                    <input type="text" [(ngModel)]="adjunto.url" [name]="'url_' + $index" class="control-formulario"
+                        placeholder="URL del archivo">
+                    <button type="button" class="boton-remover" (click)="removerAdjunto($index)">✕</button>
+
+                </div>
+            </div>
+            }
+
+            <button type="button" class="boton-secundario" (click)="agregarAdjunto()">
+                + Agregar Adjunto
+            </button>
+
+        </div>
+
+        <!-- Botones -->
+        <div class="acciones-formulario">
+
+            <button type="submit" class="boton-primario" [disabled]="formularioTicket.invalid">
+                Crear Ticket
+            </button>
+
+            <button type="button" class="boton-secundario" (click)="limpiarFormulario(formularioTicket)">
+                Limpiar
+            </button>
+
+        </div>
+    </form>
 
 </div>
