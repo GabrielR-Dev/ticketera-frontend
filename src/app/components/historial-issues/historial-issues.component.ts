@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { ITicket } from '../../interfaces/ITicket';
 import { ApiService } from '../../services/api.service';
 import { ApiResponse } from '../../interfaces/ITicket';
@@ -7,7 +8,7 @@ import { IUsuario } from '../../interfaces/IUsuario';
 
 @Component({
   selector: 'app-historial-issues',
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './historial-issues.component.html',
   styleUrl: './historial-issues.component.css',
 })
@@ -15,6 +16,10 @@ export class HistorialIssuesComponent {
   todosLosElementos: ITicket[] = [];
   ticketsCerrados: ITicket[] = [];
   ticketSeleccionado: any = null;
+  usuarios: IUsuario[] = [];
+  filtro = 'todos';
+  usuariosConTickets: string[] = [];
+  usuariosUnicos: string[] = [];
 
   elementosPorPagina = 5;
   paginaActual = 1;
@@ -49,21 +54,49 @@ export class HistorialIssuesComponent {
           adjuntos: [],
         }));
 
-        console.log('Respuesta completa del backend:', this.todosLosElementos);
+        this.usuariosConTickets = this.todosLosElementos
+          .filter((usuario) => usuario.estado === 'CERRADO')
+          .map(
+            (usuario) => `${usuario.cliente_nombre} ${usuario.cliente_apellido}`
+          );
 
-        this.ticketsCerrados = this.todosLosElementos.filter(
-          (t) => t.estado === 'CERRADO' 
-        );
-        // console.log('Tickets cerrados:', this.ticketsCerrados);
-        this.calcularPaginacion();
-        this.actualizarVista();
+        this.usuariosUnicos = [...new Set(this.usuariosConTickets)];
+
+        // console.log("Los usuarios con tickets son: ", this.usuariosConTickets)
+
+        this.aplicarFiltro();
+        // console.log('Respuesta completa del backend:', this.todosLosElementos);
+      },
+      error: (error) => {
+        console.error('Error al cargar tickets:', error);
       },
     });
   }
 
+  aplicarFiltro() {
+    console.log('Filtro actual:', this.filtro);
+
+    if (this.filtro === 'todos') {
+      this.ticketsCerrados = this.todosLosElementos.filter(
+        (t) => t.estado === 'CERRADO'
+      );
+      // console.log('Filtro actual:', this.filtro);
+    } else {
+      this.ticketsCerrados = this.todosLosElementos.filter(
+        (t) =>
+          t.estado === 'CERRADO' &&
+          `${t.cliente_nombre} ${t.cliente_apellido}` === this.filtro
+      );
+      // console.log('Filtro actual:', this.filtro);
+    }
+
+    this.calcularPaginacion();
+    this.actualizarVista();
+  }
+
   abrirModal(item: any) {
     this.ticketSeleccionado = item;
-    console.log('Ticket seleccionado:', item);
+    // console.log('Ticket seleccionado:', item);
     const modal = new (window as any).bootstrap.Modal(
       document.getElementById('exampleModal')
     );
