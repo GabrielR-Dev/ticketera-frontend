@@ -38,7 +38,7 @@ export class Usuario implements IUsuario {
     return this.rol === RolUsuario.CLIENTE;
   }
 
-  // Metodo para obtener el nombre z apellido 
+  // Metodo para obtener el nombre y apellido 
   getNombreyApellido(): string {
     return `${this.nombre} ${this.apellido}`;
   }
