@@ -1,1 +1,69 @@
-<p>{{ticket?.categoria}}</p>
+<div class="card">
+    <div class="card-header">
+        <h2>Usuario:</h2>
+    </div>
+
+    <div class="card-body">
+
+        <h5>Nombre:</h5>
+        <p>{{usuario?.nombre}}</p>
+
+        <h5>Apellido:</h5>
+        <p>{{usuario?.apellido}}</p>
+
+        <h5>DNI:</h5>
+        <p>{{usuario?.dni}}</p>
+
+        <h5>Mail:</h5>
+        <p>{{usuario?.email}}</p>
+
+        <h5>Rol:</h5>
+        <p>{{usuario?.rol}}</p>
+
+    </div>
+</div>
+<div class="card">
+    <div class="card-header">
+        <h2>Ticket:</h2>
+    </div>
+
+    <div class="card-body">
+
+        <h5>ID:</h5>
+        <p>{{ticket?.id}}</p>
+
+        <h5>Titulo:</h5>
+        <p>{{ticket?.titulo}}</p>
+
+        <h5>Descripción:</h5>
+        <p>{{ticket?.descripcion}}</p>
+
+        <h5>Categoría:</h5>
+        <p>{{ticket?.categoria}}</p>
+
+        <h5>Estado:</h5>
+        <p>{{ticket?.estado}}</p>
+
+        @if ( ticket?.fechaAsignacion !== null) {
+            <h5>Fecha de asignación:</h5>
+            <p>{{ticket?.fechaAsignacion}}</p>
+        }
+        @else {
+            <h5>Fecha de asignación:</h5>
+            <p>Todavia no se ha asignado el ticket</p>
+        }
+
+        @if ( ticket?.fechaCierre !== null) {
+            <h5>Fecha de cierre:</h5>
+            <p>{{ticket?.fechaCierre}}</p>
+        }
+        @else {
+            <h5>Fecha de cierre:</h5>
+            <p>Todavia no se ha cerrado el ticket</p>
+        }
+        
+        <h5>Adjuntos:</h5>
+        <img src="" alt="">
+
+    </div>
+</div>

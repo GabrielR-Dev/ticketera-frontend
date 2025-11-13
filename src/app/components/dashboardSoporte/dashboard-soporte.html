@@ -1,26 +1,37 @@
+<div class="btn-group" role="group" aria-label="Basic mixed styles example">
+    <button type="button" class="btn btn-success" (click)="filtrarAsignado()">
+        Abierto
+    </button>
+    <button type="button" class="btn btn-warning" (click)="filtrarNoAsignado()">
+        Asignado
+    </button>
+</div>
+
+<hr>
+
 <table class="table">
 
     <thead>
         <tr>
-            <th class="id">ID</th>
-            <th>First</th>
-            <th>Last</th>
-            <th>Handle</th>
+            <th>ID</th>
+            <th>Titulo</th>
+            <th>Categoria</th>
+            <th>ClienteID</th>
             <th></th>
         </tr>
     </thead>
 
     <tbody>
-        @for (ticket of listaProductos; track ticket.id) {
-        <tr [ngStyle]="{ 'background-color': ticket.precio > 15000 ? 'yellow' : 'lightgreen' }">
+        @for (ticket of listaTickets; track ticket.id) {
+        <tr [ngStyle]="{ 'background-color': ticket.fechaAsignacion == null ? '#ffc107' : '#198754' }">
             <th>{{ticket.id}}</th>
-            <td>{{ticket.nombre}}</td>
+            <td>{{ticket.titulo}}</td>
             <td>{{ticket.categoria}}</td>
-            <td>{{ticket.precio}}</td>
+            <td>{{ticket.clienteID}}</td>
 
             <td class="botones">
-                <button type="button" class="btn btn-primary" [disabled]="ticket.precio > 15000">Asignar</button>
-                <button type="button" class="btn btn-primary" [routerLink]="['/dashboard-soporte', ticket.id]">Detalle</button>
+                <button type="button" class="btn btn-primary" (click)="asignarTicket(ticket.id)" [disabled]="ticket.fechaAsignacion !== null">Asignar</button>
+                <button type="button" class="btn btn-primary" [routerLink]="['/menu/dashboard-soporte', ticket.id]">Detalle</button>
             </td>
         </tr>
         }
