@@ -41,15 +41,23 @@ export const routes: Routes = [
       {
         path: 'historial-issues',
         loadComponent: () =>
-          import('./components/historial-issues/historial-issues.component').then(
-            (m) => m.HistorialIssuesComponent
+          import(
+            './components/historial-issues/historial-issues.component'
+          ).then((m) => m.HistorialIssuesComponent),
+      },
+      {
+        path: 'dashboard-soporte',
+        loadComponent: () =>
+          import('./components/dashboardSoporte/dashboard-soporte').then(
+            (m) => m.DashboardSoporte
           ),
       },
-      {path: 'dashboard-soporte',
-        loadComponent: () => import('./components/dashboardSoporte/dashboard-soporte').then(m => m.DashboardSoporte)
-      },
-      {path: 'dashboard-soporte/:id',
-        loadComponent: () => import('./components/ticket/detalle-ticket.component').then(m => m.DetalleTicketComponent)
+      {
+        path: 'dashboard-soporte/:id',
+        loadComponent: () =>
+          import('./components/ticket/detalle-ticket.component').then(
+            (m) => m.DetalleTicketComponent
+          ),
       },
 
       {
@@ -57,7 +65,6 @@ export const routes: Routes = [
         redirectTo: 'dashboard',
         pathMatch: 'full',
       },
-
     ],
   },
   {

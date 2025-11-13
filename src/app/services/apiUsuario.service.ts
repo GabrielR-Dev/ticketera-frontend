@@ -1,21 +1,38 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Usuario } from '../models/Usuario'
+import { Usuario } from '../models/Usuario';
+import { map } from 'rxjs/operators';
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root',
 })
 export class ApiUsuarioService {
-    private url = 'http://localhost:3000/';
+  private url = 'http://localhost:3000/';
 
-    constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient) {}
 
-    public getAllUsers(): Observable<Usuario[]> {
-        return this.httpClient.get<Usuario[]>(this.url + 'menu/dashboard-soporte/');
+  public getAllUsers(): Observable<Usuario[]> {
+    return this.httpClient
+      .get<Usuario[]>(this.url + 'main/dashboard-soporte/detalle/usuarios')
+      .pipe(map((data) => this.toLowerCaseKeys(data)));
+  }
+
+  public getUserById(id: string): Observable<Usuario> {
+    return this.httpClient.get<Usuario>(
+      this.url + 'menu/dashboard-soporte/' + id
+    );
+  }
+
+  private toLowerCaseKeys(obj: any): any {
+    if (Array.isArray(obj)) {
+      return obj.map((item) => this.toLowerCaseKeys(item));
+    } else if (obj !== null && typeof obj === 'object') {
+      return Object.keys(obj).reduce((acc: any, key: string) => {
+        acc[key.toLowerCase()] = this.toLowerCaseKeys(obj[key]);
+        return acc;
+      }, {});
     }
-
-    public getUserById(id:string): Observable<Usuario> {
-        return this.httpClient.get<Usuario>(this.url + 'menu/dashboard-soporte/' + id);
-    }
+    return obj;
+  }
 }

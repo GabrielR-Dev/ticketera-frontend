@@ -33,6 +33,7 @@ export class DetalleTicketComponent {
             {
               next: data => {
                 this.ticket = data;
+                console.log(this.ticket);
               },
               error: (error) => {
                 console.log(error)
