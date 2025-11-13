@@ -10,7 +10,7 @@ import { IUsuario } from '../interfaces/IUsuario';
 export class ApiService {
   private _url = 'http://localhost:3000';
 
-  constructor(private _httpClient: HttpClient) {}
+  constructor(private _httpClient: HttpClient) { }
 
   public getData(): Observable<ITicket> {
     return this._httpClient.get<ITicket>(this._url);
@@ -28,4 +28,10 @@ export class ApiService {
     );
   
   }
+  
+  // Partial para omitir algunas propiedades
+  public crearTicket(ticket: Partial<ITicket>): Observable<any> {
+    return this._httpClient.post<any>(`${this._url}/tickets`, ticket);
+  }
+
 }
