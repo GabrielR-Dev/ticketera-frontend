@@ -19,7 +19,7 @@ export class DashboardComponent implements OnInit {
   totalPaginas = 1;
   paginas: number[] = [];
 
-  clienteIDActual: number = 1;
+  clienteIDActual: number = 2;
   clienteRol: string = 'CLIENTE';
 
   constructor(private apiService: ApiService) {}
