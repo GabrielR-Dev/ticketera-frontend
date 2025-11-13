@@ -1,1 +1,177 @@
-<p>dashboard works!</p>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Nombre</th>
+      <th>Categoría</th>
+      <th>Estado</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngIf="elementosMostrados.length === 0">
+      <td colspan="5" class="text-center text-muted">
+        No hay tickets asignados o pendientes para mostrar.
+      </td>
+    </tr>
+    <tr *ngFor="let item of elementosMostrados; let i = index">
+      <td>{{ item.id }}</td>
+      <td>{{ item.cliente_nombre }} {{ item.cliente_apellido }}</td>
+      <td>{{ item.categoria }}</td>
+      <td>
+        <span
+          class="badge"
+          [ngClass]="{
+            'bg-danger': item.estado === 'CERRADO',
+            'bg-warning text-dark': item.estado === 'ASIGNADO',
+            'bg-secondary': item.estado === 'PENDIENTE'
+          }"
+        >
+          {{ item.estado }}
+        </span>
+      </td>
+      <td>
+        <button
+          type="button"
+          class="btn btn-primary btn-sm"
+          (click)="abrirModal(item)"
+        >
+          Detalles
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- Paginación -->
+<nav aria-label="Navegación de página">
+  <ul class="pagination justify-content-center">
+    <li class="page-item" [class.disabled]="paginaActual === 1">
+      <a
+        class="page-link"
+        href="javascript:void(0)"
+        (click)="cambiarPagina(paginaActual - 1)"
+        >Anterior</a
+      >
+    </li>
+
+    <li
+      class="page-item"
+      *ngFor="let pagina of paginas"
+      [class.active]="pagina === paginaActual"
+    >
+      <a
+        class="page-link"
+        href="javascript:void(0)"
+        (click)="cambiarPagina(pagina)"
+        >{{ pagina }}</a
+      >
+    </li>
+
+    <li class="page-item" [class.disabled]="paginaActual === totalPaginas">
+      <a
+        class="page-link"
+        href="javascript:void(0)"
+        (click)="cambiarPagina(paginaActual + 1)"
+        >Siguiente</a
+      >
+    </li>
+  </ul>
+</nav>
+
+<!-- Modal de Detalle -->
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">
+          Ticket número: {{ ticketSeleccionado?.id }}
+        </h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-3">
+          <h6 class="text-secondary text-uppercase">Información del cliente</h6>
+          <p class="mb-1">
+            <i class="bi bi-person-circle text-primary me-2"></i>
+            <strong
+              >{{ ticketSeleccionado?.cliente_nombre }}
+              {{ ticketSeleccionado?.cliente_apellido }}</strong
+            >
+          </p>
+          <p class="mb-0">
+            <i class="bi bi-envelope text-primary me-2"></i>
+            {{ ticketSeleccionado?.cliente_email }}
+          </p>
+        </div>
+
+        <hr />
+
+        <div class="mb-3">
+          <h6 class="text-secondary text-uppercase">Detalles del ticket</h6>
+          <p class="mb-1">
+            <i class="bi bi-tag text-success me-2"></i>
+            <strong>Categoría:</strong> {{ ticketSeleccionado?.categoria }}
+          </p>
+          <p class="mb-1">
+            <i class="bi bi-info-circle text-warning me-2"></i>
+            <strong>Estado:</strong>
+            <span
+              class="badge"
+              [ngClass]="{
+                'bg-danger': ticketSeleccionado?.estado === 'CERRADO',
+                'bg-warning text-dark':
+                  ticketSeleccionado?.estado === 'ASIGNADO',
+                'bg-secondary': ticketSeleccionado?.estado === 'PENDIENTE'
+              }"
+            >
+              {{ ticketSeleccionado?.estado }}
+            </span>
+          </p>
+          <p class="mb-1">
+            <i class="bi bi-calendar-event text-primary me-2"></i>
+            <strong>Creación:</strong>
+            {{
+              ticketSeleccionado?.fechaCreacion | date : "hh:mm - dd/MM/yyyy"
+            }}
+          </p>
+          <p class="mb-0">
+            <i class="bi bi-calendar-check text-success me-2"></i>
+            <strong>Cierre:</strong>
+            {{
+              ticketSeleccionado?.fechaCierre | date : "hh:mm - dd/MM/yyyy"
+            }}
+          </p>
+        </div>
+
+        <hr />
+
+        <div>
+          <h6 class="text-secondary text-uppercase">Descripción</h6>
+          <p class="text-muted">{{ ticketSeleccionado?.descripcion }}</p>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          data-bs-dismiss="modal"
+        >
+          Cerrar
+        </button>
+
+      </div>
+    </div>
+  </div>
+</div>

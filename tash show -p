@@ -1,0 +1,23 @@
+* [33mca1c244[m[33m ([m[1;31morigin/ruta_ari[m[33m)[m mantengo api.service
+[31m|[m *   [33m4a17321[m[33m ([m[1;35mrefs/stash[m[33m)[m WIP on main: 63ee6ba Merge pull request #2 from GabrielR-Dev/newIssue-gabriel2
+[31m|[m [32m|[m[33m\[m  
+[31m|[m [32m|[m * [33meef9325[m index on main: 63ee6ba Merge pull request #2 from GabrielR-Dev/newIssue-gabriel2
+[31m|[m [32m|[m[32m/[m  
+[31m|[m *   [33m63ee6ba[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmain[m[33m)[m Merge pull request #2 from GabrielR-Dev/newIssue-gabriel2
+[31m|[m [34m|[m[35m\[m  
+[31m|[m [34m|[m * [33mbf3b362[m[33m ([m[1;31morigin/newIssue-gabriel2[m[33m)[m correcciones
+[31m|[m [34m|[m * [33ma88cb34[m detalles
+[31m|[m [34m|[m * [33m859feb6[m agregando formulario y funciones del c newIssue
+[31m|[m [34m|[m[34m/[m  
+[31m|[m * [33mea3d660[m historial issues con tickets
+[31m|[m * [33mc430829[m Merge pull request #1 from GabrielR-Dev/rama-martin
+[31m|[m[31m/[m[1;31m|[m 
+[31m|[m * [33m4ee88b1[m[33m ([m[1;31morigin/rama-martin[m[33m)[m Testeos usuarios base de datos y componente historial-issues
+[31m|[m[31m/[m  
+[31m|[m * [33m1eed596[m[33m ([m[1;31morigin/dashboard-soporte[m[33m)[m Componente detalle agregado
+[31m|[m * [33m2e31507[m Componente creado
+[31m|[m[31m/[m  
+* [33m607c36c[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mruta_ari[m[33m)[m algunos cambios
+* [33m19fc725[m dashboard y ruteo
+* [33m1f41240[m[33m ([m[1;31morigin/modelGabriel[m[33m)[m Agregando componente,ruta,enums,interfaces,models
+* [33mb070f51[m Componentes base
