@@ -6,16 +6,17 @@ export const routes: Routes = [
   {
     path: '',
     redirectTo: 'login',
-    pathMatch: 'full'
+    pathMatch: 'full',
   },
   {
     path: 'login',
-    component: LoginComponent
+    component: LoginComponent,
   },
   {
     path: 'menu',
     component: MenuComponent,
-    children: [/* Aca van las rutas que van a tener que poner la ruta a su componente para que la ruta sea menu/ejemplo
+    children: [
+      /* Aca van las rutas que van a tener que poner la ruta a su componente para que la ruta sea menu/ejemplo
       {
         path: 'ejemplo',
         loadComponent: () => import('./components/ejemplo/ejemplo.component').then(m => m.EjemploComponent)
@@ -23,23 +24,38 @@ export const routes: Routes = [
       */
       {
         path: 'reporte-issue',
-        loadComponent: () => import('./components/new-issue/new-issue.component').then(m => m.NewIssueComponent)
+        loadComponent: () =>
+          import('./components/new-issue/new-issue.component').then(
+            (m) => m.NewIssueComponent
+          ),
       },
-        
-      {path: 'dashboard',
-        loadComponent: () => import('./components/dashboard/dashboard.component').then(m => m.DashboardComponent)
-      
+
+      {
+        path: 'dashboard',
+        loadComponent: () =>
+          import('./components/dashboard/dashboard.component').then(
+            (m) => m.DashboardComponent
+          ),
       },
-      
+
+      {
+        path: 'historial-issues',
+        loadComponent: () =>
+          import('./components/historial-issues/historial-issues.component').then(
+            (m) => m.HistorialIssuesComponent
+          ),
+      },
+
       {
         path: '',
         redirectTo: 'dashboard',
-        pathMatch: 'full'
+        pathMatch: 'full',
       },
-    ]
+
+    ],
   },
   {
     path: '**',
-    redirectTo: 'login'
-  }
+    redirectTo: 'login',
+  },
 ];

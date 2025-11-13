@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ApiService } from '../../services/api.service';
@@ -6,6 +7,13 @@ import { ApiService } from '../../services/api.service';
   selector: 'app-dashboard',
   standalone: true,
   imports: [CommonModule],
+=======
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-dashboard',
+  imports: [],
+>>>>>>> origin/main
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css'],
 })

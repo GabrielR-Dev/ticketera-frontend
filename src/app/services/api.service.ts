@@ -22,10 +22,13 @@ export class ApiService {
     return this._httpClient.get<ITicket[]>(`${this._url}/tickets`);
   }
 
+<<<<<<< HEAD
   public getFilteredTickets(clienteID: number, rol: string): Observable<ITicket[]> {
     return this._httpClient.get<ITicket[]>(
       `${this._url}/tickets/filtrados?clienteID=${clienteID}&rol=${rol}`
     );
   
   }
+=======
+>>>>>>> origin/main
 }

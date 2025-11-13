@@ -7,11 +7,20 @@ export interface ITicket {
   titulo: string;
   descripcion: string;
   estado: EstadoTicket;
+  categoria: CategoriaTicket;
   fechaCreacion: Date;
   fechaAsignacion?: Date | null;
   fechaCierre?: Date | null;
   clienteID: number;
   tecnicoID?: number | null;
-  categoria: CategoriaTicket;
+  cliente_nombre?: string;
+  cliente_apellido?: string;
+  cliente_email?: string;
+  cliente_rol?: string;
   adjuntos: IAdjunto[];
+}
+
+export interface ApiResponse {
+  status: string;
+  data: [];
 }
