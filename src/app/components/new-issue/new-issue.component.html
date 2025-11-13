@@ -1,6 +1,14 @@
 <div class="contenedor">
     <h2>Formulario de Ticket de Soporte</h2>
 
+   <!-- Mensaje de respuesta del servidor -->
+    @if (mensajeRespuesta) {
+    <div class="mensaje-respuesta" [class.exito]="mensajeRespuesta.includes('✅')" 
+         [class.error]="mensajeRespuesta.includes('❌')">
+        {{ mensajeRespuesta }}
+    </div>
+    }
+
     <form #formularioTicket="ngForm" (ngSubmit)="enviarFormulario(formularioTicket)">
 
         <!-- Título -->

@@ -1,10 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormBuilder, FormsModule } from '@angular/forms';
 import { TicketModel } from '../../models/Ticket';
 import { CategoriaTicket } from '../../enums/CategoriaTicket';
 import { IAdjunto } from '../../interfaces/IAdjunto';
 import { EstadoTicket } from '../../enums/EstadoTicket';
+import { ApiService } from '../../services/api.service';
 
 @Component({
     selector: 'app-new-issue',
@@ -14,11 +15,16 @@ import { EstadoTicket } from '../../enums/EstadoTicket';
 })
 export class NewIssueComponent {
 
+    private apiService = inject(ApiService);
+
     // Enums para usarlos en el template
     EstadoTicket = EstadoTicket;
     CategoriaTicket = CategoriaTicket;
 
     ticketCreado: TicketModel | null = null;
+
+    cargando: boolean = false;
+    mensajeRespuesta: string = '';
 
     // Datos del formulario inicializados
     datosFormulario = {
@@ -40,33 +46,66 @@ export class NewIssueComponent {
 
         if (formulario.valid) {
 
-            const nuevoTicket = new TicketModel({
+            // Crear el objeto que espera el backend
+            const ticketParaBackend = {
                 titulo: this.datosFormulario.titulo,
                 descripcion: this.datosFormulario.descripcion,
                 estado: this.datosFormulario.estado,
-                fechaCreacion: new Date(),
-                fechaAsignacion: this.datosFormulario.fechaAsignacion,
-                fechaCierre: this.datosFormulario.fechaCierre,
-                clienteID: this.datosFormulario.clienteID,
-                tecnicoID: this.datosFormulario.tecnicoID,
-                categoria: this.datosFormulario.categoria,
-                adjuntos: this.datosFormulario.adjuntos
+                clienteId: this.datosFormulario.clienteID,
+                tecnicoId: this.datosFormulario.tecnicoID, 
+                categoria: this.datosFormulario.categoria
+            };
+
+            this.cargando = true;
+            this.mensajeRespuesta = '';
+
+            // Enviar al backend usando el servicio
+            this.apiService.crearTicket(ticketParaBackend).subscribe({
+                next: (respuesta) => {
+                    console.log('Respuesta del backend:', respuesta);
+
+                    // Crear instancia local del ticket
+                    const nuevoTicket = new TicketModel({
+                        titulo: this.datosFormulario.titulo,
+                        descripcion: this.datosFormulario.descripcion,
+                        estado: this.datosFormulario.estado,
+                        fechaCreacion: new Date(),
+                        fechaAsignacion: this.datosFormulario.fechaAsignacion,
+                        fechaCierre: this.datosFormulario.fechaCierre,
+                        clienteID: this.datosFormulario.clienteID,
+                        tecnicoID: this.datosFormulario.tecnicoID,
+                        categoria: this.datosFormulario.categoria,
+                        adjuntos: this.datosFormulario.adjuntos
+                    });
+
+                    this.ticketCreado = nuevoTicket;
+
+                    console.log('Ticket creado (instancia):', nuevoTicket);
+                    console.log('Ticket JSON:', nuevoTicket.toJSON());
+                    console.log('Estado legible:', nuevoTicket.getEstadoLegible());
+                    console.log('Categoría:', nuevoTicket.getCategoriaString());
+                    console.log('¿Está pendiente?:', nuevoTicket.estaPendiente());
+                    console.log('¿Tiene técnico asignado?:', nuevoTicket.tieneTecncoAsignado());
+
+                    this.mensajeRespuesta = `${respuesta.mensaje} - ID: ${respuesta.datos.id}`;
+                    this.cargando = false;
+
+                    // Limpiar formulario despues de 2 segundos
+                    setTimeout(() => {
+                        this.limpiarFormulario(formulario);
+                    }, 2000);
+                },
+                error: (error) => {
+                    console.error('Error al crear ticket:', error);
+                    this.mensajeRespuesta = `Error: ${error.error?.error || 'No se pudo crear el ticket'}`;
+                    this.cargando = false;
+                }
             });
-
-            this.ticketCreado = nuevoTicket;
-
-            console.log('Ticket creado (instancia):', nuevoTicket);
-            console.log('Ticket JSON:', nuevoTicket.toJSON());
-            console.log('Estado legible:', nuevoTicket.getEstadoLegible());
-            console.log('Categoría:', nuevoTicket.getCategoriaString());
-            console.log('¿Está pendiente?:', nuevoTicket.estaPendiente());
-            console.log('¿Tiene técnico asignado?:', nuevoTicket.tieneTecncoAsignado());
-
-            alert('Ticket creado exitosamente!');
-
-            this.limpiarFormulario(formulario);
+        } else {
+            alert('Por favor completa todos los campos requeridos');
         }
     }
+
 
 
     agregarAdjunto(): void {
@@ -82,7 +121,7 @@ export class NewIssueComponent {
         this.datosFormulario.adjuntos.splice(indice, 1);
     }
 
-    
+
     limpiarFormulario(formulario: any): void {
 
         formulario.resetForm();
@@ -101,5 +140,7 @@ export class NewIssueComponent {
         };
         // Resetear el ticket creado
         this.ticketCreado = null;
+        this.mensajeRespuesta = '';
+
     }
 }
