@@ -4,7 +4,7 @@ import { ApiService } from '../../services/api.service';
 
 @Component({
   selector: 'app-dashboard',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css'],
 })
