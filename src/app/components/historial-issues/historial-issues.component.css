@@ -3,6 +3,12 @@
 
 }
 
+:host {
+  display: block;
+  min-height: 100vh; /* Mínimo el 100% de la altura de la pantalla */
+
+}
+
 .modal-content {
   box-shadow: 0px 0px 10px 2px #000;
 }
