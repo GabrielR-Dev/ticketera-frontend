@@ -1,5 +1,6 @@
 export enum CategoriaTicket {
   RED = 'RED',
   HARDWARE = 'HARDWARE',
-  SOFTWARE = 'SOFTWARE'
+  SOFTWARE = 'SOFTWARE',
+  OTROS = 'OTROS'
 }

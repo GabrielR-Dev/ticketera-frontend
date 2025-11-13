@@ -1,0 +1,54 @@
+:host {
+  display: block;
+  min-height: 100vh; /* Mínimo el 100% de la altura de la pantalla */
+
+  background: #673ab7;
+  background: linear-gradient(
+    180deg,
+    rgba(103, 58, 183, 1) 0%,
+    rgba(255, 255, 255, 1) 100%
+  );
+}
+
+
+input {
+  width: 275px !important;
+}
+form {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgb(233, 235, 215);
+  box-shadow: inset 0px 0px 80px -40px rgba(0, 0, 0, 0.62),
+    0px 0px 80px -40px rgba(0, 0, 0, 0.62);
+  padding: 20px;
+  border: 2px rgb(0, 0, 0, 0.5) solid;
+  border-radius: 20px;
+  /* width: 40vh; */
+}
+
+.btn {
+  width: 100%;
+  background-color: #4caf50;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.invalid {
+  color: red;
+  margin-left: 5px;
+}
+
+@media (max-width: 768px) {
+  input {
+    width: 230px !important;
+  }
+}

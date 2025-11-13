@@ -1,39 +1,40 @@
+<div class="filter">
+  <label for="usuarioSelect" class="form-label">Filtrar por usuario:</label>
+  <select
+    class="form-select"
+    aria-label="usuarioSelect"
+    [(ngModel)]="filtro"
+    (change)="aplicarFiltro()"
+  >
+    <option value="todos">Todos</option>
+    <option *ngFor="let usuario of usuariosUnicos" [value]="usuario">
+      {{ usuario }}
+    </option>
+  </select>
+</div>
+
 <table class="table table-striped">
   <thead>
     <tr>
       <th>ID</th>
       <th>Nombre</th>
-      <th>Categoría</th>
+      <th>Titulo</th>
+      <th>Categoria</th>
       <th>Estado</th>
       <th>Acciones</th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngIf="elementosMostrados.length === 0">
-      <td colspan="5" class="text-center text-muted">
-        No hay tickets asignados o pendientes para mostrar.
-      </td>
-    </tr>
     <tr *ngFor="let item of elementosMostrados; let i = index">
       <td>{{ item.id }}</td>
       <td>{{ item.cliente_nombre }} {{ item.cliente_apellido }}</td>
+      <td>{{ item.titulo }}</td>
       <td>{{ item.categoria }}</td>
-      <td>
-        <span
-          class="badge"
-          [ngClass]="{
-            'bg-danger': item.estado === 'CERRADO',
-            'bg-warning text-dark': item.estado === 'ASIGNADO',
-            'bg-secondary': item.estado === 'PENDIENTE'
-          }"
-        >
-          {{ item.estado }}
-        </span>
-      </td>
+      <td>{{ item.estado }}</td>
       <td>
         <button
           type="button"
-          class="btn btn-primary btn-sm"
+          class="btn btn-primary"
           (click)="abrirModal(item)"
         >
           Detalles
@@ -43,7 +44,6 @@
   </tbody>
 </table>
 
-<!-- Paginación -->
 <nav aria-label="Navegación de página">
   <ul class="pagination justify-content-center">
     <li class="page-item" [class.disabled]="paginaActual === 1">
@@ -79,7 +79,7 @@
   </ul>
 </nav>
 
-<!-- Modal de Detalle -->
+<!-- Modal -->
 <div
   class="modal fade"
   id="exampleModal"
@@ -91,7 +91,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="exampleModalLabel">
-          Ticket número: {{ ticketSeleccionado?.id }}
+          Ticket numero: {{ ticketSeleccionado?.id }}
         </h1>
         <button
           type="button"
@@ -102,16 +102,14 @@
       </div>
       <div class="modal-body">
         <div class="mb-3">
-          <h6 class="text-secondary text-uppercase">Información del cliente</h6>
+          <h1 class="text-uppercase">Información del cliente</h1>
           <p class="mb-1">
-            <i class="bi bi-person-circle text-primary me-2"></i>
             <strong
               >{{ ticketSeleccionado?.cliente_nombre }}
               {{ ticketSeleccionado?.cliente_apellido }}</strong
             >
           </p>
           <p class="mb-0">
-            <i class="bi bi-envelope text-primary me-2"></i>
             {{ ticketSeleccionado?.cliente_email }}
           </p>
         </div>
@@ -119,13 +117,11 @@
         <hr />
 
         <div class="mb-3">
-          <h6 class="text-secondary text-uppercase">Detalles del ticket</h6>
+          <h1 class="text-uppercase">Detalles del ticket</h1>
           <p class="mb-1">
-            <i class="bi bi-tag text-success me-2"></i>
             <strong>Categoría:</strong> {{ ticketSeleccionado?.categoria }}
           </p>
           <p class="mb-1">
-            <i class="bi bi-info-circle text-warning me-2"></i>
             <strong>Estado:</strong>
             <span
               class="badge"
@@ -140,37 +136,28 @@
             </span>
           </p>
           <p class="mb-1">
-            <i class="bi bi-calendar-event text-primary me-2"></i>
             <strong>Creación:</strong>
             {{
               ticketSeleccionado?.fechaCreacion | date : "hh:mm - dd/MM/yyyy"
             }}
           </p>
           <p class="mb-0">
-            <i class="bi bi-calendar-check text-success me-2"></i>
             <strong>Cierre:</strong>
-            {{
-              ticketSeleccionado?.fechaCierre | date : "hh:mm - dd/MM/yyyy"
-            }}
+            {{ ticketSeleccionado?.fechaCierre | date : "hh:mm - dd/MM/yyyy" }}
           </p>
         </div>
 
         <hr />
 
         <div>
-          <h6 class="text-secondary text-uppercase">Descripción</h6>
-          <p class="text-muted">{{ ticketSeleccionado?.descripcion }}</p>
+          <h1 class="text-uppercase">Descripción</h1>
+          <p>{{ ticketSeleccionado?.descripcion }}</p>
         </div>
       </div>
       <div class="modal-footer">
-        <button
-          type="button"
-          class="btn btn-secondary"
-          data-bs-dismiss="modal"
-        >
-          Cerrar
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Close
         </button>
-
       </div>
     </div>
   </div>

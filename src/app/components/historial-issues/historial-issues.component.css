@@ -1,0 +1,46 @@
+:root {
+  --color-principal: #673AB7;
+
+}
+
+:host {
+  display: block;
+  min-height: 100vh; /* Mínimo el 100% de la altura de la pantalla */
+
+}
+
+.modal-content {
+  box-shadow: 0px 0px 10px 2px #000;
+}
+
+.modal-content h1 {
+  font-size: 30px;
+}
+
+.modal-content span {
+  margin-left: 5px;
+}
+
+.table {
+  box-shadow: 0px 0px 10px 2px #777;
+}
+
+.table th {
+  vertical-align: middle;
+  font-weight: 600;
+}
+
+.table td {
+  vertical-align: middle;
+}
+
+.form-select {
+  max-width: 200px;
+}
+
+.filter {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 25px;
+}
