@@ -20,7 +20,7 @@ export class ApiUsuarioService {
 
   public getUserById(id: string): Observable<Usuario> {
     return this.httpClient.get<Usuario>(
-      this.url + 'menu/dashboard-soporte/' + id
+      this.url + 'main/dashboard-soporte/detalle/usuarios/' + id
     );
   }
 

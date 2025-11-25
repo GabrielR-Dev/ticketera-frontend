@@ -45,6 +45,7 @@ form {
 .invalid {
   color: red;
   margin-left: 5px;
+  margin-top: 5px;
 }
 
 @media (max-width: 768px) {

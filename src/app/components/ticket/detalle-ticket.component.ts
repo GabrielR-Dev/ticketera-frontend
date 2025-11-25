@@ -47,7 +47,7 @@ export class DetalleTicketComponent {
       {
         next: data => {
           this.usuario = data;
-          this.usuario.contraseña = '';
+          this.usuario.CONTRASENA = '';
         },
         error: (error) => {
           console.log(error)
