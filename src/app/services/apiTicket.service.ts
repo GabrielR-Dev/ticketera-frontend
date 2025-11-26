@@ -9,7 +9,7 @@ import { map } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class ApiTicketService {
-  private url = 'http://localhost:3000/';
+  private url = 'http://3.94.185.64/';
 
   constructor(private httpClient: HttpClient) {}
 
