@@ -4,7 +4,8 @@
     </div>
 
     <div class="card-body">
-
+        
+        @if ( asigned == true) {
         <h5>Nombre:</h5>
         <p>{{usuario?.nombre}}</p>
 
@@ -19,9 +20,14 @@
 
         <h5>Rol:</h5>
         <p>{{usuario?.rol}}</p>
+        }
+        @else {
+        <h5>Usuario sin asignar</h5>
+        }
 
     </div>
 </div>
+
 <div class="card">
     <div class="card-header">
         <h2>Ticket:</h2>
@@ -45,23 +51,23 @@
         <p>{{ticket?.estado}}</p>
 
         @if ( ticket?.fechaAsignacion !== null) {
-            <h5>Fecha de asignación:</h5>
-            <p>{{ticket?.fechaAsignacion}}</p>
+        <h5>Fecha de asignación:</h5>
+        <p>{{ticket?.fechaAsignacion}}</p>
         }
         @else {
-            <h5>Fecha de asignación:</h5>
-            <p>Todavia no se ha asignado el ticket</p>
+        <h5>Fecha de asignación:</h5>
+        <p>Todavia no se ha asignado el ticket</p>
         }
 
         @if ( ticket?.fechaCierre !== null) {
-            <h5>Fecha de cierre:</h5>
-            <p>{{ticket?.fechaCierre}}</p>
+        <h5>Fecha de cierre:</h5>
+        <p>{{ticket?.fechaCierre}}</p>
         }
         @else {
-            <h5>Fecha de cierre:</h5>
-            <p>Todavia no se ha cerrado el ticket</p>
+        <h5>Fecha de cierre:</h5>
+        <p>Todavia no se ha cerrado el ticket</p>
         }
-        
+
         <h5>Adjuntos:</h5>
         <img src="" alt="">
 

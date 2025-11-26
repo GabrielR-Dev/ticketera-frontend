@@ -6,6 +6,7 @@ import { ApiUsuarioService } from '../../services/apiUsuario.service'
 
 import { TicketModel } from '../../models/Ticket';
 import { Usuario } from '../../models/Usuario';
+import { flatMap } from 'rxjs';
 
 @Component({
   selector: 'app-detalle-ticket',
@@ -23,6 +24,7 @@ export class DetalleTicketComponent {
   idTicket: string = '';
   ticket?: TicketModel;
   usuario?: Usuario;
+  asigned = true;
 
   ngOnInit(): void {
     this.route.params.subscribe(
@@ -43,16 +45,21 @@ export class DetalleTicketComponent {
         }
       }
     )
-    this.apiUsuarioService.getUserById(this.idTicket).subscribe(
-      {
-        next: data => {
-          this.usuario = data;
-          this.usuario.contraseña = '';
-        },
-        error: (error) => {
-          console.log(error)
+    if (this.ticket?.clienteID === undefined) {
+      this.asigned = false;
+    }
+    else {
+      this.apiUsuarioService.getUserById(this.ticket?.clienteID).subscribe(
+        {
+          next: data => {
+            this.usuario = data;
+            this.usuario.contraseña = '';
+          },
+          error: (error) => {
+            console.log(error)
+          }
         }
-      }
-    )
+      )
+    }
   }
 }

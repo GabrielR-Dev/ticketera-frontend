@@ -21,13 +21,13 @@ export class ApiTicketService {
 
   public getAllAsignedTickets(): Observable<TicketModel[]> {
     return this.httpClient.get<TicketModel[]>(
-      this.url + 'main/dashboard-soporte/detalle'
+      this.url + 'main/dashboard-soporte/detalle/asignedTickets'
     );
   }
 
   public getAllUnasignedTickets(): Observable<TicketModel[]> {
     return this.httpClient.get<TicketModel[]>(
-      this.url + 'main/dashboard-soporte/detalle'
+      this.url + 'main/dashboard-soporte/detalle/unasignedTickets'
     );
   }
 

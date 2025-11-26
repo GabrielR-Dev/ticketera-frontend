@@ -15,13 +15,13 @@ export class ApiUsuarioService {
   public getAllUsers(): Observable<Usuario[]> {
     return this.httpClient
       .get<Usuario[]>(this.url + 'main/dashboard-soporte/detalle/usuarios')
-      .pipe(map((data) => this.toLowerCaseKeys(data)));
+      .pipe(map(data => this.toLowerCaseKeys(data)));
   }
 
-  public getUserById(id: string): Observable<Usuario> {
+  public getUserById(id: number | undefined): Observable<Usuario> {
     return this.httpClient.get<Usuario>(
       this.url + 'menu/dashboard-soporte/' + id
-    );
+    ).pipe(map(data => this.toLowerCaseKeys(data)));
   }
 
   private toLowerCaseKeys(obj: any): any {
