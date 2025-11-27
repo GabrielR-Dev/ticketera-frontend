@@ -9,7 +9,7 @@ import { map } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class ApiTicketService {
-  private url = 'http://3.94.185.64/';
+  private url = 'http://localhost:3000/';
 
   constructor(private httpClient: HttpClient) {}
 
@@ -21,13 +21,13 @@ export class ApiTicketService {
 
   public getAllAsignedTickets(): Observable<TicketModel[]> {
     return this.httpClient.get<TicketModel[]>(
-      this.url + 'main/dashboard-soporte/detalle'
+      this.url + 'main/dashboard-soporte/detalle/asignedTickets'
     );
   }
 
   public getAllUnasignedTickets(): Observable<TicketModel[]> {
     return this.httpClient.get<TicketModel[]>(
-      this.url + 'main/dashboard-soporte/detalle'
+      this.url + 'main/dashboard-soporte/detalle/unasignedTickets'
     );
   }
 

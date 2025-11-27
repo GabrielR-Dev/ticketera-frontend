@@ -25,6 +25,11 @@ export class DetalleTicketComponent {
   usuario?: Usuario;
 
   ngOnInit(): void {
+    this.cargarTicket();
+   
+  }
+
+  cargarTicket(): void {
     this.route.params.subscribe(
       {
         next: param => {
@@ -34,6 +39,7 @@ export class DetalleTicketComponent {
               next: data => {
                 this.ticket = data;
                 console.log(this.ticket);
+                this.cargarUsuario(this.ticket.clienteID);
               },
               error: (error) => {
                 console.log(error)
@@ -42,8 +48,11 @@ export class DetalleTicketComponent {
           )
         }
       }
-    )
-    this.apiUsuarioService.getUserById(this.idTicket).subscribe(
+    );
+  }
+
+  cargarUsuario(ticket: any): void {
+   this.apiUsuarioService.getUserById(ticket).subscribe(
       {
         next: data => {
           this.usuario = data;
@@ -56,3 +65,4 @@ export class DetalleTicketComponent {
     )
   }
 }
+

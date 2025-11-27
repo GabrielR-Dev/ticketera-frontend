@@ -1,8 +1,8 @@
 <div class="btn-group" role="group" aria-label="Basic mixed styles example">
-    <button type="button" class="btn btn-success" (click)="filtrarAsignado()">
+    <button type="button" class="btn btn-success" (click)="filtrarNoAsignado()">
         Abierto
     </button>
-    <button type="button" class="btn btn-warning" (click)="filtrarNoAsignado()">
+    <button type="button" class="btn btn-warning" (click)="filtrarAsignado()">
         Asignado
     </button>
 </div>
@@ -23,7 +23,7 @@
 
     <tbody>
         @for (ticket of listaTickets; track ticket.id) {
-        <tr [ngStyle]="{ 'background-color': ticket.fechaAsignacion == null ? '#ffc107' : '#198754' }">
+        <tr [ngStyle]="{ 'background-color': ticket.fechaAsignacion == null ? '#198754' : '#ffc107' }">
             <th>{{ticket.id}}</th>
             <td>{{ticket.titulo}}</td>
             <td>{{ticket.categoria}}</td>

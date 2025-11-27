@@ -8,7 +8,7 @@ import { IUsuario } from '../interfaces/IUsuario';
   providedIn: 'root',
 })
 export class ApiService {
-  private _url = 'http://3.94.185.64';
+  private _url = 'http://localhost:3000';
 
   constructor(private _httpClient: HttpClient) { }
 

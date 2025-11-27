@@ -8,7 +8,7 @@ import { map } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class ApiUsuarioService {
-  private url = 'http://3.94.185.64/';
+  private url = 'http://localhost:3000/';
 
   constructor(private httpClient: HttpClient) {}
 
@@ -18,7 +18,7 @@ export class ApiUsuarioService {
       .pipe(map((data) => this.toLowerCaseKeys(data)));
   }
 
-  public getUserById(id: string): Observable<Usuario> {
+  public getUserById(id: number | undefined): Observable<Usuario> {
     return this.httpClient.get<Usuario>(
       this.url + 'main/dashboard-soporte/detalle/usuarios/' + id
     );
