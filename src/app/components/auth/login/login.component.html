@@ -1,37 +1,78 @@
-<form [formGroup]="formularioLogin" (ngSubmit)="onSubmit()" method="POST" class="form needs-validation .login-container"
-  id="form">
+<form
+  [formGroup]="formularioLogin"
+  (ngSubmit)="onSubmit()"
+  method="POST"
+  class="form needs-validation .login-container"
+  id="form"
+>
+  <div *ngIf="!isNewPasswordRequired">
+    <h1>LOGIN</h1>
+    <p>Ingrese la clave</p>
+    <div class="form-floating mb-3">
+      <input
+        type="email"
+        class="form-control"
+        id="email"
+        name="email"
+        placeholder="email"
+        formControlName="email"
+        autocomplete="off"
+        [ngClass]="{
+          'is-invalid':
+            mostrarErrores('email', 'required') ||
+            mostrarErrores('email', 'email')
+        }"
+      />
+      <label for="email">Email</label>
 
-  <h1>LOGIN</h1>
-  <p>Ingrese la clave</p>
-  <div class="form-floating mb-3">
-    <input type="email" class="form-control" id="email" name="email" placeholder="email" formControlName="email"
-      autocomplete="off"
-      [ngClass]="{'is-invalid': mostrarErrores('email', 'required') || mostrarErrores('email', 'email')}" />
-    <label for="email">Email</label>
+      @if (mostrarErrores('email', 'required')) {
+      <div class="invalid">El email es requerido</div>
+      } @if (mostrarErrores('email', 'email')) {
+      <div class="invalid">Debe ser un mail valido</div>
+      }
+    </div>
 
-    @if (mostrarErrores('email', 'required')) {
-    <div class="invalid">El email es requerido</div>
-    }
+    <div class="form-floating mb-3">
+      <input
+        type="password"
+        class="form-control"
+        id="password"
+        name="password"
+        placeholder="password"
+        formControlName="password"
+        autocomplete="off"
+        [ngClass]="{ 'is-invalid': mostrarErrores('password', 'required') }"
+      />
+      <label for="password">Contraseña</label>
 
-    @if (mostrarErrores('email', 'email')) {
-    <div class="invalid">Debe ser un mail valido</div>
-    }
-
-  </div>
-
-  <div class="form-floating mb-3">
-    <input type="password" class="form-control" id="password" name="password" placeholder="password"
-      formControlName="password" autocomplete="off"
-      [ngClass]="{'is-invalid': mostrarErrores('password', 'required')}" />
-    <label for="password">Contraseña</label>
-    
-    @if (mostrarErrores('password', 'required')) {
+      @if (mostrarErrores('password', 'required')) {
       <div class="invalid">La contraseña es requerida</div>
-    }
+      }
 
-    <div class="invalid"> {{ error }} </div>
+      <div class="invalid">{{ error }}</div>
+    </div>
 
+    <button
+      type="submit"
+      class="btn btn-success"
+      [disabled]="formularioLogin.invalid"
+    >
+      Enviar
+    </button>
   </div>
 
-  <button type="submit" class="btn btn-success" [disabled]="formularioLogin.invalid">Enviar</button>
+  <div
+    *ngIf="isNewPasswordRequired"
+  >
+    <h3>Establece tu contraseña definitiva</h3>
+    <p>Por seguridad, debes cambiar tu contraseña temporal.</p>
+
+    <input
+      formControlName="newPassword"
+      type="password"
+      placeholder="Nueva Contraseña"
+      name="newPass"
+    />
+    <button (click)="onNewPasswordSubmit()">Confirmar y Entrar</button>
+  </div>
 </form>
